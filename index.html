@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diários de Planejamento - E.E. José Marcelino de Almeida</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="bg-slate-50 text-slate-800 font-sans min-h-screen flex flex-col justify-between">
+
+    <!-- Cabeçalho -->
+    <header class="bg-[#122a4a] text-white py-6 px-6 shadow-md border-b-4 border-[#cda135] text-center">
+        <div class="max-w-4xl mx-auto flex flex-col items-center justify-center space-y-3">
+            <div class="bg-white p-2 rounded-lg shadow-md">
+                <svg width="50" height="55" viewBox="0 0 100 115" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M50 12 L80 32 L80 65 C80 85 50 105 50 105 C50 105 20 85 20 65 L20 32 Z" fill="#122a4a" stroke="#cda135" stroke-width="6"/>
+                    <path d="M50 3 L38 12 L62 12 Z" fill="#cda135"/><circle cx="50" cy="5" r="2.5" fill="#cda135"/><circle cx="38" cy="13" r="2" fill="#cda135"/><circle cx="62" cy="13" r="2" fill="#cda135"/>
+                    <path d="M30 45 L70 45 M30 55 L70 55 M30 65 L70 65 M50 35 L50 75" stroke="white" stroke-width="4" stroke-linecap="round"/>
+                </svg>
+            </div>
+            <div>
+                <h1 class="text-xl md:text-2xl font-bold tracking-wide">E.E. José Marcelino de Almeida</h1>
+                <p class="text-sm text-amber-200">Portal de Diários de Planejamento Docente - 2o Semestre / 2026</p>
+            </div>
+        </div>
+    </header>
+
+    <!-- Conteúdo Centralizado -->
+    <main class="flex-1 flex items-center justify-center p-4">
+        <div class="bg-white p-8 rounded-2xl shadow-xl border border-slate-200 max-w-md w-full text-center space-y-6">
+            <div>
+                <h2 class="text-lg font-bold text-slate-700">Acesso ao Diário Dinâmico</h2>
+                <p class="text-xs text-slate-400 mt-1">Selecione seu nome na lista abaixo para abrir seu caderno de planejamento.</p>
+            </div>
+
+            <!-- Seleção de Professor -->
+            <div class="text-left space-y-2">
+                <label for="select-professor" class="text-xs font-bold text-slate-500 uppercase tracking-wider block">Professor(a):</label>
+                <div class="relative">
+                    <select id="select-professor" class="w-full bg-slate-50 border-2 border-slate-200 rounded-xl px-4 py-3 text-sm font-medium focus:border-[#122a4a] focus:ring-0 outline-none appearance-none cursor-pointer transition">
+                        <option value="" disabled selected>-- Escolha seu nome aqui --</option>
+                    </select>
+                    <div class="absolute inset-y-0 right-4 flex items-center pointer-events-none text-slate-400">
+                        <i class="fa-solid fa-chevron-down"></i>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Botão de Entrada -->
+            <button onclick="irParaDiario()" id="btn-entrar" disabled class="w-full bg-slate-300 text-slate-500 font-bold py-3 px-4 rounded-xl transition shadow flex items-center justify-center space-x-2 cursor-not-allowed">
+                <i class="fa-solid fa-right-to-bracket"></i>
+                <span>Acessar Meu Diário</span>
+            </button>
+        </div>
+    </main>
+
+    <!-- Rodapé -->
+    <footer class="bg-slate-100 text-center py-4 border-t border-slate-200 text-xs text-slate-400">
+        Diretoria Regional de Ensino: Barretos &bull; Ambiente de Planejamento Escolar 2026
+    </footer>
+
+    <script>
+        const PROFESSORES = [
+            "Alessandra", "Anderson", "Bruna", "Renata", "Cristina", 
+            "Dalva", "Eric", "Felipe", "Fernanda", "Fernanda_Cruz", "Francieli", 
+            "Gabriel_C", "Gabriel_V", "Glaucia", "Glauconita", "João", "Janaina", 
+            "Leila", "Luzia", "Marcio", "Marcelo", "Mari", "Natália", "Odair", 
+            "Pedro", "Raquel", "Rodolfo", "Samanta", "Silvano", "Vinicius", "Walmir"
+        ];
+
+        const select = document.getElementById('select-professor');
+        const btn = document.getElementById('btn-entrar');
+
+        PROFESSORES.sort().forEach(prof => {
+            const opt = document.createElement('option');
+            opt.value = prof;
+            opt.innerText = prof.replace(/_/g, ' '); 
+            select.appendChild(opt);
+        });
+
+        select.addEventListener('change', () => {
+            if (select.value) {
+                btn.removeAttribute('disabled');
+                btn.className = "w-full bg-[#122a4a] hover:bg-[#0c1e36] text-white font-bold py-3 px-4 rounded-xl transition shadow flex items-center justify-center space-x-2 cursor-pointer";
+            }
+        });
+
+        function irParaDiario() {
+            const destino = select.value;
+            if (destino) {
+                window.location.href = `./paginas_professores/${destino}/index.html`;
+            }
+        }
+    </script>
+</body>
+</html>
